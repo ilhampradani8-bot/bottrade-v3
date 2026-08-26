@@ -10,7 +10,7 @@ primary_region = "sin" # Singapore region (Low latency to OKX/Binance APIs)
   PORT = "8090"
   NODE_ENV = "production"
 
-[[http_service]]
+[http_service]
   internal_port = 8090
   force_https = true
   auto_stop_machines = false # Pastikan bot berjalan 24/7 nonstop

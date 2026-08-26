@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BitTrade V3 - Quantitative Trading & Research Platform</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="logo">
+                <div class="logo-icon">⚡</div>
+                <div class="logo-text">BitTrade <span>V3</span></div>
+            </div>
+
+            <nav class="nav-menu">
+                <a href="#" class="nav-item active" id="nav-dashboard">
+                    <span class="icon">📊</span>
+                    <span>Dashboard</span>
+                </a>
+                <a href="#" class="nav-item" id="nav-regime">
+                    <span class="icon">📈</span>
+                    <span>Market Regime</span>
+                </a>
+                <a href="#" class="nav-item" id="nav-smartdca">
+                    <span class="icon">🎯</span>
+                    <span>Smart DCA</span>
+                </a>
+                <a href="#" class="nav-item" id="nav-statarb">
+                    <span class="icon">⚖️</span>
+                    <span>StatARB Research</span>
+                </a>
+                <a href="#" class="nav-item" id="nav-journal">
+                    <span class="icon">📝</span>
+                    <span>Trading Journal</span>
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="status-indicator">
+                    <span class="pulse-dot"></span>
+                    <span id="engine-status">Engine Connected</span>
+                </div>
+                <div class="version-tag">Rust Core v3.0.0</div>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <!-- Header -->
+            <header class="top-header">
+                <div class="header-title">
+                    <h1>Executive Dashboard</h1>
+                    <p class="subtitle">Pemantauan Bot Trading Kuantitatif & Engine Multi-Regime Real-Time</p>
+                </div>
+                <div class="header-actions">
+                    <button class="btn btn-secondary" id="btn-refresh">🔄 Refresh Data</button>
+                    <button class="btn btn-primary" id="btn-run-backtest">▶️ Run Backtest</button>
+                </div>
+            </header>
+
+            <!-- Metrics Overview Grid -->
+            <section class="metrics-grid">
+                <div class="metric-card glass-card">
+                    <div class="metric-header">
+                        <span class="metric-title">Total Portfolio Value</span>
+                        <span class="metric-icon">💼</span>
+                    </div>
+                    <div class="metric-value" id="val-portfolio">$12,450.80</div>
+                    <div class="metric-badge positive">+14.2% Total PnL</div>
+                </div>
+
+                <div class="metric-card glass-card">
+                    <div class="metric-header">
+                        <span class="metric-title">Active Market Regime</span>
+                        <span class="metric-icon">🌀</span>
+                    </div>
+                    <div class="metric-value accent" id="val-regime">Sideways BB</div>
+                    <div class="metric-subtext">StdDev Volatility: 0.042%</div>
+                </div>
+
+                <div class="metric-card glass-card">
+                    <div class="metric-header">
+                        <span class="metric-title">Smart DCA Accumulation</span>
+                        <span class="metric-icon">🎯</span>
+                    </div>
+                    <div class="metric-value" id="val-dca">Layer 1 Active</div>
+                    <div class="metric-subtext">VSR: 1.05 | RSI-14: 42.5</div>
+                </div>
+
+                <div class="metric-card glass-card">
+                    <div class="metric-header">
+                        <span class="metric-title">24h Win Rate</span>
+                        <span class="metric-icon">🏆</span>
+                    </div>
+                    <div class="metric-value" id="val-winrate">78.5%</div>
+                    <div class="metric-subtext">11 Win / 3 Loss</div>
+                </div>
+            </section>
+
+            <!-- Main Interactive Grid -->
+            <div class="dashboard-grid">
+                <!-- Bot Status Panel -->
+                <div class="grid-card glass-card">
+                    <div class="card-header">
+                        <h3>🤖 Status Engine Bot Active</h3>
+                        <span class="badge badge-pulse">3 Running</span>
+                    </div>
+                    <div class="bot-list" id="bot-list-container">
+                        <!-- Dynamic Bot Cards loaded via JS -->
+                    </div>
+                </div>
+
+                <!-- Recent Trades Log -->
+                <div class="grid-card glass-card">
+                    <div class="card-header">
+                        <h3>📜 Jurnal Transaksi Real-Time</h3>
+                        <button class="btn-link" id="view-all-trades">Lihat Semua</button>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Waktu</th>
+                                    <th>Bot / Strategi</th>
+                                    <th>Simbol</th>
+                                    <th>Tipe</th>
+                                    <th>Harga</th>
+                                    <th>PnL</th>
+                                </tr>
+                            </thead>
+                            <tbody id="trades-table-body">
+                                <!-- Dynamic Trades loaded via JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

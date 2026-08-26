@@ -1,0 +1,18 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "bittrade-v3-research"
+version = "3.0.0"
+description = "BitTrade V3 Research & Quantitative Modeling Tools"
+authors = [{ name = "Ilham Pradani", email = "ilhampradani8@gmail.com" }]
+requires-python = ">=3.11"
+dependencies = [
+    "numpy",
+    "pandas",
+    "scipy",
+    "statsmodels",
+    "plotly",
+    "ccxt"
+]

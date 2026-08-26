@@ -1,0 +1,23 @@
+{
+  "targets": {
+    "debug": {
+      "outFile": "build/untouched.wasm",
+      "textFile": "build/untouched.wat",
+      "sourceMap": true,
+      "debug": true,
+      "shrink": false,
+      "optimizeLevel": 0
+    },
+    "release": {
+      "outFile": "build/optimized.wasm",
+      "textFile": "build/optimized.wat",
+      "sourceMap": false,
+      "shrink": true,
+      "optimizeLevel": 3
+    }
+  },
+  "options": {
+    "bindings": "esm",
+    "exportRuntime": true
+  }
+}

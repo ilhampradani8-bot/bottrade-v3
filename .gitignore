@@ -1,0 +1,32 @@
+# Rust build output
+/target/
+**/*.rs.bk
+Cargo.lock
+
+# Python Virtual Environment & Cache
+venv/
+.venv/
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.ipynb_checkpoints/
+
+# Data & Database files
+*.db
+*.sqlite
+*.sqlite3
+*.log
+bot.log
+okx.log
+
+# Environment variables & secrets
+.env
+.env.local
+config.secret.toml
+
+# IDE & OS files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

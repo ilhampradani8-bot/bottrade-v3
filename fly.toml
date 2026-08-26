@@ -1,0 +1,23 @@
+# fly.toml - Fly.io deployment config for BitTrade V3 AssemblyScript Wasm Engine
+
+app = "bittrade-v3-app"
+primary_region = "sin" # Singapore region (Low latency to OKX/Binance APIs)
+
+[build]
+  dockerfile = "Dockerfile"
+
+[env]
+  PORT = "8090"
+  NODE_ENV = "production"
+
+[[http_service]]
+  internal_port = 8090
+  force_https = true
+  auto_stop_machines = false # Pastikan bot berjalan 24/7 nonstop
+  auto_start_machines = true
+  min_machines_running = 1
+
+[[vm]]
+  memory = "256mb"
+  cpu_kind = "shared"
+  cpus = 1

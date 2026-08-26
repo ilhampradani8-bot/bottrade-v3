@@ -1,7 +1,6 @@
 {
   "version": 2,
-  "cleanUrls": true,
-  "rewrites": [
-    { "source": "/(.*)", "destination": "/web-ui/$1" }
-  ]
+  "framework": null,
+  "outputDirectory": "web-ui",
+  "cleanUrls": true
 }

@@ -1,0 +1,13 @@
+# render.yaml - Render Blueprint deployment configuration for BitTrade V3 Wasm Engine
+services:
+  - type: web
+    name: bottrade-v3
+    env: docker
+    dockerfilePath: Dockerfile
+    plan: free
+    region: singapore
+    envVars:
+      - key: PORT
+        value: 8090
+      - key: NODE_ENV
+        value: production

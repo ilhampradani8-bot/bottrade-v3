@@ -1,15 +1,18 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import { Sidebar } from '@/components/Sidebar';
 import { Navbar } from '@/components/Navbar';
 import { MetricsOverview } from '@/components/MetricsOverview';
 import { BotStatusPanel, BotInfo } from '@/components/BotStatusPanel';
 import { BacktestPanel } from '@/components/BacktestPanel';
 import { TradesJournal, TradeRecord } from '@/components/TradesJournal';
+import { QuantTradingView } from '@/components/QuantTradingView';
 import { WalletState } from '@/lib/web3';
-import { ShieldCheck, RefreshCw, Cpu, Code2, Server } from 'lucide-react';
+import { RefreshCw, Server } from 'lucide-react';
 
-export default function PaperWhiteDashboard() {
+export default function AppMainPage() {
+  const [activeTab, setActiveTab] = useState<'dashboard' | 'quant-trading'>('dashboard');
   const [wallet, setWallet] = useState<WalletState>({
     address: null,
     chainId: null,
@@ -33,7 +36,6 @@ export default function PaperWhiteDashboard() {
   ]);
 
   useEffect(() => {
-    // Check Engine Backend Health
     fetch('http://localhost:8090/api/health')
       .then(res => res.json())
       .then(data => {
@@ -92,61 +94,74 @@ export default function PaperWhiteDashboard() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#FAF8F5]">
-      <Navbar wallet={wallet} onWalletChange={setWallet} engineConnected={engineConnected} />
+    <div className="min-h-screen flex bg-[#FAF8F5]">
+      {/* Sidebar Navigation */}
+      <Sidebar activeTab={activeTab} onTabChange={setActiveTab} />
 
-      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        
-        {/* Paper White Header Section */}
-        <div className="flex flex-col md:flex-row md:items-center justify-between pb-6 mb-6 border-b border-[#E6E1D7]">
-          <div>
-            <div className="flex items-center space-x-2">
-              <h1 className="text-2xl font-extrabold text-[#1C1B1A] tracking-tight">
-                Paper White Executive Dashboard
-              </h1>
-              <span className="badge-paper font-mono">v3.0 Decoupled</span>
+      {/* Main Content Area */}
+      <div className="flex-1 flex flex-col min-w-0">
+        <Navbar wallet={wallet} onWalletChange={setWallet} engineConnected={engineConnected} />
+
+        <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
+          
+          {activeTab === 'dashboard' ? (
+            <div>
+              {/* Header Section */}
+              <div className="flex flex-col md:flex-row md:items-center justify-between pb-6 mb-6 border-b border-[#E6E1D7]">
+                <div>
+                  <div className="flex items-center space-x-2">
+                    <h1 className="text-2xl font-extrabold text-[#1C1B1A] tracking-tight">
+                      Paper White Executive Dashboard
+                    </h1>
+                    <span className="badge-paper font-mono">v3.0 Decoupled</span>
+                  </div>
+                  <p className="text-xs text-[#6B6862] mt-1">
+                    Pemantauan Bot Trading Kuantitatif Wasm & Engine Testnet Web3 Real-Time
+                  </p>
+                </div>
+
+                <div className="mt-4 md:mt-0 flex items-center space-x-3">
+                  <div className="bg-white border border-[#E6E1D7] px-3 py-1.5 rounded-lg text-xs font-mono flex items-center space-x-2 shadow-sm">
+                    <Server className="w-3.5 h-3.5 text-[#1C1B1A]" />
+                    <span className="text-[#6B6862]">Backend Host:</span>
+                    <strong className="text-[#1C1B1A]">Port 8090</strong>
+                  </div>
+
+                  <button
+                    onClick={() => location.reload()}
+                    className="paper-button-secondary text-xs flex items-center space-x-1.5"
+                  >
+                    <RefreshCw className="w-3.5 h-3.5 text-[#1C1B1A]" />
+                    <span>Refresh</span>
+                  </button>
+                </div>
+              </div>
+
+              {/* Paper White Metrics Grid */}
+              <MetricsOverview wallet={wallet} />
+
+              {/* Bot Status Panel (Decoupled Engine) */}
+              <BotStatusPanel bots={bots} onTriggerSignal={handleTriggerSignal} />
+
+              {/* WebAssembly Backtest Simulator */}
+              <BacktestPanel />
+
+              {/* Real-time Web3 Testnet Trades Journal */}
+              <TradesJournal trades={trades} />
             </div>
-            <p className="text-xs text-[#6B6862] mt-1">
-              Pemantauan Bot Trading Kuantitatif Wasm & Engine Testnet Web3 Real-Time
-            </p>
+          ) : (
+            /* Quant Trading View */
+            <QuantTradingView wallet={wallet} />
+          )}
+
+        </main>
+
+        <footer className="bg-white border-t border-[#E6E1D7] py-4 mt-8">
+          <div className="max-w-7xl mx-auto px-4 text-center text-xs text-[#6B6862] font-mono">
+            BitTrade V3 — Paper White Web3 Next.js Frontend + AssemblyScript WebAssembly Engine Core
           </div>
-
-          <div className="mt-4 md:mt-0 flex items-center space-x-3">
-            <div className="bg-white border border-[#E6E1D7] px-3 py-1.5 rounded-lg text-xs font-mono flex items-center space-x-2">
-              <Server className="w-3.5 h-3.5 text-[#1C1B1A]" />
-              <span className="text-[#6B6862]">Backend Host:</span>
-              <strong className="text-[#1C1B1A]">Port 8090</strong>
-            </div>
-
-            <button
-              onClick={() => location.reload()}
-              className="paper-button-secondary text-xs flex items-center space-x-1.5"
-            >
-              <RefreshCw className="w-3.5 h-3.5 text-[#1C1B1A]" />
-              <span>Refresh</span>
-            </button>
-          </div>
-        </div>
-
-        {/* Paper White Metrics Grid */}
-        <MetricsOverview wallet={wallet} />
-
-        {/* Bot Status Panel (Decoupled Engine) */}
-        <BotStatusPanel bots={bots} onTriggerSignal={handleTriggerSignal} />
-
-        {/* WebAssembly Backtest Simulator */}
-        <BacktestPanel />
-
-        {/* Real-time Web3 Testnet Trades Journal */}
-        <TradesJournal trades={trades} />
-
-      </main>
-
-      <footer className="bg-white border-t border-[#E6E1D7] py-4 mt-8">
-        <div className="max-w-7xl mx-auto px-4 text-center text-xs text-[#6B6862] font-mono">
-          BitTrade V3 — Paper White Web3 Next.js Frontend + AssemblyScript WebAssembly Engine Core
-        </div>
-      </footer>
+        </footer>
+      </div>
     </div>
   );
 }

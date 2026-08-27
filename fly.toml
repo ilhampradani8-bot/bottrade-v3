@@ -1,3 +1,4 @@
+
 # fly.toml - Fly.io deployment config for BitTrade V3 AssemblyScript Wasm Engine
 
 app = "bittrade-v3-app"

@@ -3,6 +3,14 @@
 **/*.rs.bk
 Cargo.lock
 
+# Node.js & Next.js Build Output & Dependencies
+node_modules/
+frontend/node_modules/
+.next/
+frontend/.next/
+dist/
+build/
+
 # Python Virtual Environment & Cache
 venv/
 .venv/

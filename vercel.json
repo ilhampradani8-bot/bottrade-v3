@@ -1,6 +1,7 @@
 {
   "version": 2,
-  "framework": null,
-  "outputDirectory": "web-ui",
+  "buildCommand": "npm --prefix frontend install && npm --prefix frontend run build",
+  "outputDirectory": "frontend/.next",
+  "framework": "nextjs",
   "cleanUrls": true
 }

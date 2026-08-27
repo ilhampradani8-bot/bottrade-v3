@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { LayoutDashboard, LineChart, Wallet, Cpu, Activity } from 'lucide-react';
+import { LayoutDashboard, LineChart } from 'lucide-react';
 
 interface SidebarProps {
   activeTab: 'dashboard' | 'quant-trading';
@@ -12,11 +12,13 @@ export const Sidebar: React.FC<SidebarProps> = ({ activeTab, onTabChange }) => {
   return (
     <aside className="w-64 bg-white border-r border-[#E6E1D7] flex flex-col justify-between hidden md:flex min-h-screen">
       <div>
-        {/* Brand Header */}
+        {/* Brand Header with User Logo */}
         <div className="p-5 border-b border-[#E6E1D7] flex items-center space-x-3">
-          <div className="w-9 h-9 rounded-lg bg-[#1C1B1A] flex items-center justify-center text-white font-bold shadow-sm">
-            ⚡
-          </div>
+          <img 
+            src="/logo.jpeg" 
+            alt="MIJ Logo" 
+            className="w-9 h-9 rounded-lg object-cover border border-[#E6E1D7] shadow-sm" 
+          />
           <div>
             <h2 className="font-bold text-base text-[#1C1B1A] tracking-tight">BitTrade V3</h2>
             <span className="text-[11px] font-mono text-[#6B6862]">Paper White Wasm</span>

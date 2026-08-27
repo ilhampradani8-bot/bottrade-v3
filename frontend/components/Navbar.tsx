@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { WalletState, connectWeb3Wallet, switchTestnetNetwork, TESTNET_NETWORKS } from '@/lib/web3';
-import { Wallet, ShieldCheck, Cpu, ChevronDown, Activity, Globe } from 'lucide-react';
+import { Wallet, ShieldCheck, ChevronDown, Globe } from 'lucide-react';
 
 interface NavbarProps {
   wallet: WalletState;
@@ -39,12 +39,14 @@ export const Navbar: React.FC<NavbarProps> = ({ wallet, onWalletChange, engineCo
     <header className="w-full bg-[#FFFFFF] border-b border-[#E6E1D7] sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
         
-        {/* Brand Logo & Architecture Tag */}
+        {/* Brand Logo with User Custom Logo */}
         <div className="flex items-center space-x-4">
-          <div className="flex items-center space-x-2">
-            <div className="w-9 h-9 rounded-lg bg-[#1C1B1A] flex items-center justify-center text-white font-bold shadow-sm">
-              ⚡
-            </div>
+          <div className="flex items-center space-x-2.5">
+            <img 
+              src="/logo.jpeg" 
+              alt="MIJ Logo" 
+              className="w-9 h-9 rounded-lg object-cover border border-[#E6E1D7] shadow-sm" 
+            />
             <div>
               <span className="font-bold text-lg text-[#1C1B1A] tracking-tight">BitTrade</span>
               <span className="ml-1 text-xs font-semibold px-1.5 py-0.5 rounded bg-[#F4F1EA] text-[#43413E] border border-[#E0DAD0]">

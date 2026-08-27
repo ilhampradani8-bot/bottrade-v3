@@ -1,12 +1,12 @@
 import express, { Request, Response } from 'express';
 import cors from 'cors';
 import path from 'path';
+import fs from 'fs';
 import { loadWasmEngine, WasmEngine } from './wasm_loader';
 
 const app = express();
 const PORT = process.env.PORT || 8090;
 
-// Enable CORS for Next.js frontend & Vercel deployments
 app.use(cors({
     origin: '*',
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
@@ -14,9 +14,15 @@ app.use(cors({
 }));
 app.use(express.json());
 
-// Serve legacy static web-ui if available
-app.use(express.static(path.join(__dirname, '../web-ui')));
-app.use(express.static(path.join(__dirname, '../frontend/out')));
+// Serve Next.js Paper White Web3 Frontend static build from frontend/out
+const frontendOutPath = path.join(__dirname, '../frontend/out');
+const legacyWebUiPath = path.join(__dirname, '../web-ui');
+
+if (fs.existsSync(frontendOutPath)) {
+    app.use(express.static(frontendOutPath));
+} else {
+    app.use(express.static(legacyWebUiPath));
+}
 
 let wasmEngine: WasmEngine;
 
@@ -33,7 +39,7 @@ app.get('/api/health', (req: Request, res: Response) => {
 app.get('/api/status', (req: Request, res: Response) => {
     res.json({
         engine_type: "AssemblyScript (WebAssembly Runtime)",
-        architecture: "Decoupled Wasm Engine Backend",
+        architecture: "Unified 8090 Wasm Engine & Paper White UI",
         bots: [
             { name: "Bot A - Market Regime (BTC)", regime: "Sideways BB", volatility: "0.042%", status: "Active", pnl: "+$320.50" },
             { name: "Bot B - Smart DCA (ETH)", regime: "Layer 1 Accumulation", rsi: 42.5, status: "Active", pnl: "+$410.20" },
@@ -85,12 +91,21 @@ app.post('/api/trade/signal', (req: Request, res: Response) => {
     });
 });
 
+// Fallback to index.html for Single Page App routing
+app.get('*', (req: Request, res: Response) => {
+    if (fs.existsSync(path.join(frontendOutPath, 'index.html'))) {
+        res.sendFile(path.join(frontendOutPath, 'index.html'));
+    } else {
+        res.sendFile(path.join(legacyWebUiPath, 'index.html'));
+    }
+});
+
 async function startServer() {
     wasmEngine = await loadWasmEngine();
     app.listen(PORT, () => {
         console.log(`==================================================`);
-        console.log(` ⚡ BitTrade V3 Standalone Wasm Engine Backend Active`);
-        console.log(` 🌐 Host API: http://localhost:${PORT}`);
+        console.log(` ⚡ BitTrade V3 Unified Wasm Engine & Paper White UI`);
+        console.log(` 🌐 All-in-One Dashboard: http://localhost:${PORT}`);
         console.log(`==================================================`);
     });
 }

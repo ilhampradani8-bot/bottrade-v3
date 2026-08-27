@@ -1,6 +1,12 @@
 // Web3 Testnet Helper & Wallet Connector for BitTrade V3
 import { ethers } from 'ethers';
 
+declare global {
+  interface Window {
+    ethereum?: any;
+  }
+}
+
 export interface WalletState {
   address: string | null;
   chainId: string | null;
@@ -79,7 +85,6 @@ export async function switchTestnetNetwork(chainIdHex: string): Promise<boolean>
     });
     return true;
   } catch (err: any) {
-    // Code 4902 means chain has not been added yet
     if (err.code === 4902) {
       const net = TESTNET_NETWORKS[chainIdHex];
       if (net) {
